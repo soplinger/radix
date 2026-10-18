@@ -1,0 +1,22 @@
+# Radix sample batch: one command per line, 'expect' lines gate CI.
+# Run with: python3 radix.py run examples/sample.radix
+
+convert 255 16
+convert ff 10 16
+literal 0xff
+steps 255 2
+twos -5 8
+untwos 11111011 8
+op add 127 1 8
+op sub 0 1 8
+op sar 0b10000000 1 8
+roman 1994
+unroman MCMXCIV
+float 32 0.1
+floatbits 32 0x3dcccccd
+
+expect convert 255 16 = ff
+expect convert ff 10 16 = 255
+expect untwos 11111011 8 = -5 (bits=11111011 hex=0xfb unsigned=251 signed=-5)
+expect roman 1994 = MCMXCIV
+expect unroman MMXXVI = 2026
